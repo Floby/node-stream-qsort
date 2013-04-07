@@ -1,0 +1,32 @@
+{
+  "name": "stream-qsort",
+  "version": "0.0.0",
+  "description": "a qsort as a stream",
+  "main": "QsortStream.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "nodeunit test/test-*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Floby/node-stream-qsort.git"
+  },
+  "keywords": [
+    "stream",
+    "streams2",
+    "qsort",
+    "objectMode"
+  ],
+  "author": "Florent Jaby <florent.jaby@gmail.com>",
+  "license": "MIT",
+  "readmeFilename": "README.markdown",
+  "gitHead": "bd879313488409b6348de6dc2fc91bc0731dd89d",
+  "dependencies": {
+    "stream-stream": "~1.1.1"
+  },
+  "devDependencies": {
+    "nodeunit": "~0.8"
+  }
+}
