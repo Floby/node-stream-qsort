@@ -27,13 +27,20 @@ sort.end();
 // output
 // 0
 // 1
+// 19
 // 3
 // 4
 // 5
 // 8
-// 19
 
 ```
+
+As you can see, the default compare function sorts
+19 right after 1 and before 3. This is because the contract
+of the QsortStream is to use the same compare functions as
+Array.sort().
+
+See the [official doc on sort](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/sort)
 
 API
 ---
