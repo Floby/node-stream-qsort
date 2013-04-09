@@ -22,3 +22,20 @@ exports.testSortNumbers = function(test) {
     }, 100);
 }
 
+exports.testSortStrings = function(test) {
+    var s = qsort();
+    var source = ['disney', 'world', 'a', 'aba', 'hello', '8', 'CAPITAL'];
+
+    as(source).pipe(s).pipe(sink({objectMode: true})).on('data', function(data) {
+        clearTimeout(to);
+        test.equal(JSON.stringify(data), JSON.stringify(source.sort()), 'data should be identical');
+        test.done();
+    });
+
+    var to = setTimeout(function() {
+        test.fail('too long');
+        test.done();
+    }, 100);
+}
+
+

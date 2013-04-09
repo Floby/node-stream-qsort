@@ -32,6 +32,7 @@ function QsortStream (compare, options) {
     this._compare = compare || options.compare || defaultCompare;
     
     options.objectMode = true;
+    options.compare = this._compare;
     stream.Duplex.call(this, options);
 
     this._options = options;
@@ -47,12 +48,6 @@ function QsortStream (compare, options) {
 
     this.on('readable', function() {
     });
-
-    var oldPush = this.push;
-    this.push = function(v) {
-        console.log('pushing', v)
-        return oldPush.call(this, v);
-    }
 }
 util.inherits(QsortStream, stream.Duplex);
 
@@ -89,7 +84,6 @@ QsortStream.prototype._addMin = function _addMin(chunk) {
         this._output.write(this._minStream);
     }
 
-    if(chunk === 0) console.log('writing ZERO')
     this._minStream.write(chunk)
 };
 
