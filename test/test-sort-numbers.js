@@ -1,5 +1,6 @@
 var qsort = require('../');
 var sink = require('stream-sink');
+var as = require('./arraystream');
 
 
 exports.testSortNumbers = function(test) {
@@ -8,15 +9,12 @@ exports.testSortNumbers = function(test) {
     // with transform streams in objectMode
     // see https://github.com/joyent/node/pull/5181
     var source = [8, 5, 1, 4, 3, 9, 18, 45, 3];
-    s.pipe(sink({objectMode: true})).on('data', function(data) {
+
+    as(source).pipe(s).pipe(sink({objectMode: true})).on('data', function(data) {
         clearTimeout(to);
         test.equal(JSON.stringify(data), JSON.stringify(source.sort()), 'data should be identical');
         test.done();
     });
-    source.forEach(function(e) {
-        s.write(e);
-    })
-    s.end()
 
     var to = setTimeout(function() {
         test.fail('too long');
