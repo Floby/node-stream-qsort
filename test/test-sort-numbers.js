@@ -2,12 +2,15 @@ var qsort = require('../');
 var sink = require('stream-sink');
 
 
-exports.testOneValue = function(test) {
+exports.testSortNumbers = function(test) {
     var s = qsort();
-    var source = [1];
+    // removed 0 as there is a bug in node v0.10.3
+    // with transform streams in objectMode
+    // see https://github.com/joyent/node/pull/5181
+    var source = [8, 5, 1, 4, 3, 9, 18, 45, 3];
     s.pipe(sink({objectMode: true})).on('data', function(data) {
         clearTimeout(to);
-        test.equal(JSON.stringify(data), JSON.stringify(source), 'data should be identical');
+        test.equal(JSON.stringify(data), JSON.stringify(source.sort()), 'data should be identical');
         test.done();
     });
     source.forEach(function(e) {
@@ -18,6 +21,6 @@ exports.testOneValue = function(test) {
     var to = setTimeout(function() {
         test.fail('too long');
         test.done();
-    }, 100)
+    }, 100);
 }
 
